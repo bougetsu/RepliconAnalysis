@@ -1,0 +1,98 @@
+##Python
+
+
+mkdir -p local/Python-2.7
+cd software
+wget "https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz"
+tar -Jxf Python-2.7.8.tar.xz 
+cd ~/software/Python-2.7.8/
+./configure --prefix=$HOME/local/Python-2.7 
+make
+make install
+
+vim ~/.bash_profile
+export PATH=$HOME/local/Python-2.7/bin:$HOME/local/Python-2.7:$PATH
+source ~/.bash_profile
+
+
+
+##install setup tools pip
+wget "https://bootstrap.pypa.io/get-pip.py"
+python get-pip.py --prefix=$HOME/local/Python-2.7
+python -m pip install --upgrade pip setuptools wheel
+
+##install biopython
+pip install scipy
+easy_install reportlab 
+easy_install -f http://biopython.org/DIST/ biopython
+
+
+
+wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.7.1+-x64-linux.tar.gz
+tar -zxvf ncbi-blast-2.7.1+-x64-linux.tar.gz
+mv ncbi-blast-2.7.1+/ ~/local/
+cd ~/local
+mv ncbi-blast-2.7.1+/ blast
+vim ~./bash_profile
+
+##
+export PATH=$HOME/local/blast/bin/:$PATH
+##
+
+source ~./bash_profile
+
+
+
+##build db
+
+
+##get error    ##Can't locate Archive/Tar.pm in @INC
+cpan -i Archive::Tar
+
+nohup time update_blastdb.pl nt nr > log &
+
+nohup time tar -zxvf *.tar.gz > log2 &
+
+
+makeblastdb -in rep_kelli.fsa -dbtype nucl -parse_seqids -out rep_kelli
+
+
+blastn -query enteroccocus_plasmid.fasta -db rep_kelli -outfmt 11 -out "enteroccocus_plasmid.blastn@rep_kelli.asn" -num_threads 8
+
+blast_formatter -archive "enteroccocus_plasmid.blastn@rep_kelli.asn" -outfmt "7 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore staxids salltitles" > "enteroccocus_plasmid.blastn@rep_kelli.tab"
+
+makeblastdb -in rep_family.fasta -dbtype nucl -parse_seqids -out rep_family
+
+blastn -query enteroccocus_plasmid.fasta -db rep_family -outfmt 11 -out "enteroccocus_plasmid.blastn@rep_family.asn" -num_threads 8
+
+blastn -query enteroccocus_plasmid.fasta -db ~/data/blast/rep_kelli -outfmt 11 -out "enteroccocus_plasmid.blastn@rep_kelli.asn" -num_threads 8
+blast_formatter -archive "enteroccocus_plasmid.blastn@rep_kelli.asn" -outfmt "7 qseqid sseqid pident length qcovs qstart qend sstart send evalue bitscore" > "enteroccocus_plasmid.blastn@rep_kelli.tab"
+blast_formatter -archive "enteroccocus_plasmid.blastn@rep_family.asn" -outfmt 5 > "enteroccocus_plasmid.blastn@rep_family.xml"
+
+awk -F '\t' '{print $1"\t"$4"\t"$6"\t"$7"\t"$19}' enter_blast@rep_kelli_filtered.tab |uniq > enter_blast@rep_kelli_fil_uniq.tab
+
+
+
+python python_scripts/filterAligned.py rep_info.tab enteroccocus_plasmid.blastn@rep_kelli.tab enter_blast@rep_kelli_filtered.tab
+sort -t $'\t'  -k1,1r -k19,19n -k6,6n -k7,7n  enter_blast@rep_kelli_filtered.tab > enter_blast@rep_kelli_filtered.tab_filtered
+python python_scripts/unique.py enter_blast@rep_kelli_filtered.tab
+awk -F '\t' '{ print $1,$19 }' enter_blast@rep_kelli_filtered.tab_uniq > plasmid_family.tab
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##########fast toolkit
+export PKG_CONFIG_PATH=/net/ab/cb/69/cxz163430/local/lib/pkgconfig:$PKG_CONFIG_PATH
