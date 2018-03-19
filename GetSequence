@@ -1,0 +1,270 @@
+from Bio import Entrez
+from Bio import SeqIO
+Entrez.email = "zhcong.pku@gmail.com"
+
+handel = Entrez.esearch(db="nucleotide", term=str("Enterococcus[porgn] AND biomol_genomic[PROP] AND plasmid[filter] NOT complete cds[Title] NOT gene[Title] NOT genes[Title] NOT contig[Title] NOT scaffold[Title] NOT whole genome map[Title] NOT partial sequence[Title] NOT partial plasmid[Title] NOT locus[Title] NOT region[Title] NOT fragment[Title] NOT integron[Title] NOT transposon[Title] NOT insertion sequence[Title] NOT insertion element[Title] NOT phage[Title] NOT operon[Title]")
+
+
+handel = Entrez.esearch(db="genome", term=str("Enterococcus[porgn] AND biomol_genomic[PROP] AND plasmid[filter] NOT complete cds[Title] NOT gene[Title] NOT genes[Title] NOT contig[Title] NOT scaffold[Title] NOT whole genome map[Title] NOT partial sequence[Title] NOT partial plasmid[Title] NOT locus[Title] NOT region[Title] NOT fragment[Title] NOT integron[Title] NOT transposon[Title] NOT insertion sequence[Title] NOT insertion element[Title] NOT phage[Title] NOT operon[Title]"))
+
+record = Entrez.read(handle)
+
+handel = Entrez.esearch(db="nucleotide", term=str("Enterococcus[ORGN] AND biomol_genomic[PROP] AND plasmid[FILT] NOT cds[Title] NOT gene[Title] NOT genes[Title] NOT contig[Title] NOT scaffold[Title] NOT whole genome map[Title] NOT partial[Title] NOT locus[Title] NOT region[Title] NOT fragment[Title] NOT integron[Title] NOT transposon[Title] NOT insertion sequence[Title] NOT insertion element[Title] NOT phage[Title] NOT operon[Title]"))
+
+
+
+((Enterococcus[Organism]) AND biomol_genomic[Properties]) AND plasmid[Filter] AND complete[Title] NOT gene[Title] NOT partial[Title] NOT cds[Title] NOT genes[Title] NOT shotgun[Title] NOT frames[Title] 
+
+handel = Entrez.esearch(db="nucleotide", term=str("((Enterococcus[Organism]) AND biomol_genomic[Properties]) AND plasmid[Filter] AND complete[Title] NOT gene[Title] NOT partial[Title] NOT cds[Title] NOT genes[Title] NOT shotgun[Title] NOT frames[Title] "))
+
+
+
+
+filename = "test1.gbk"
+if not os.path.isfile(filename):
+    net_handle = Entrez.efetch(db="nucleotide",term=str("((Enterococcus[Organism]) AND biomol_genomic[Properties]) AND plasmid[Filter] AND complete[Title] NOT gene[Title] NOT partial[Title] NOT cds[Title] NOT genes[Title] NOT shotgun[Title] NOT frames[Title]"),rettype="gb", retmode="text")
+    out_handle = open(filename, "w")
+    out_handle.write(net_handle.read())
+    out_handle.close()
+    net_handle.close()
+    print "Saved"
+
+print "Parsing..."
+record = SeqIO.read(filename, "genbank")
+print record
+
+
+
+handel = Entrez.esearch(db="nucleotide", term="((Enterococcus[Organism]) AND biomol_genomic[Properties]) AND plasmid[Filter] AND complete[Title] NOT gene[Title] NOT partial[Title] NOT cds[Title] NOT genes[Title] NOT shotgun[Title] NOT frames[Title] ")
+
+
+
+
+
+handle = Entrez.esearch(db="nucleotide", term="Enterococcus[ORGN] biomol_genomic[Properties]) AND plasmid[FILT] AND complete[Title] NOT gene[Title] NOT partial[Title] NOT cds[Title] NOT genes[Title] NOT shotgun[Title] NOT frames[Title] NOT contig[Title] NOT scaffold[Title] NOT whole genome map[Title] NOT partial sequence[Title] NOT partial plasmid[Title] NOT locus[Title] NOT region[Title] NOT fragment[Title] NOT integron[Title] NOT transposon[Title] NOT insertion sequence[Title] NOT insertion element[Title] NOT phage[Title] NOT operon[Title]", retMax = 500,  usehistory="y")
+
+search_results = Entrez.read(handle)
+handle.close()
+gi_list = search_results["IdList"]
+count = int(search_results["Count"])
+assert count == len(gi_list)
+
+
+webenv = search_results["WebEnv"]
+query_key = search_results["QueryKey"]
+
+
+
+
+
+
+batch_size = 10
+out_handle = open("entero_pls.xml", "w")
+for start in range(0,count,batch_size):
+    end = min(count, start+batch_size)
+    print "Going to download record %i to %i" % (start+1, end)
+    fetch_handle = Entrez.efetch(db="nucleotide", rettype="fasta", retmode="xml",
+                                 retstart=start, retmax=batch_size,
+                                 webenv=webenv, query_key=query_key)
+    data = fetch_handle.read()
+    fetch_handle.close()
+    out_handle.write(data)
+print "saved"
+out_handle.close()
+
+
+
+
+
+
+handle = Entrez.esearch(db="nucleotide", term="Enterococcus[ORGN] biomol_genomic[Properties]) AND plasmid[FILT] AND complete[Title] NOT gene[Title] NOT partial[Title] NOT cds[Title] NOT genes[Title] NOT shotgun[Title] NOT frames[Title] NOT contig[Title] NOT scaffold[Title] NOT whole genome map[Title] NOT partial sequence[Title] NOT partial plasmid[Title] NOT locus[Title] NOT region[Title] NOT fragment[Title] NOT integron[Title] NOT transposon[Title] NOT insertion sequence[Title] NOT insertion element[Title] NOT phage[Title] NOT operon[Title]", retMax = 500,  usehistory="y")
+
+search_results = Entrez.read(handle)
+handle.close()
+gi_list = search_results["IdList"]
+count = int(search_results["Count"])
+assert count == len(gi_list)
+
+
+webenv = search_results["WebEnv"]
+query_key = search_results["QueryKey"]
+
+
+batch_size = 10
+out_handle = open("entero_pls.xml", "w")
+
+
+
+
+
+
+for start in range(0,count,batch_size):
+    	end = min(count, start+batch_size)
+    	print "Going to download record %i to %i" % (start+1, end)
+    	fetch_handle = Entrez.efetch(db="nucleotide", retmode="xml",
+                                 retstart=start, retmax=batch_size,
+                                 webenv=webenv, query_key=query_key)
+    	data = fetch_handle.read()
+    	fetch_handle.close()
+    	out_handle.write(data)
+
+print "saved"
+out_handle.close()
+
+	for record in data:
+		de = record['GBSeq_definition']
+		source = record['GBSeq_source']
+		acc = record['GBSeq_primary-accession']	
+		date = record['GBSeq_create-date']
+		print acc, de, source, date
+
+
+handle = open("entero_pls.xml")
+records = Entrez.parse(handle, validate=False )
+record = Entrez.read(handle, validate=False)
+for record in records:
+...     status = record['Entrezgene_track-info']['Gene-track']['Gene-track_status']
+...     if status.attributes['value']=='discontinued':
+...         continue
+...     geneid = record['Entrezgene_track-info']['Gene-track']['Gene-track_geneid']
+...     genename = record['Entrezgene_gene']['Gene-ref']['Gene-ref_locus']
+...     print geneid, genename
+
+handle = open("entero_pls.xml")
+data = Entrez.parse(handle, validate=False )
+out_seq = open("entero_meta.tab", "w")
+out_seq.write("Accesion\tDef\tSource\tCreatedDate\n")
+for record in data:
+	de = record['GBSeq_definition']
+	source = record['GBSeq_source']
+	acc = record['GBSeq_primary-accession']	
+	date = record['GBSeq_create-date']
+	strain = ""
+	isolate = ""
+	country = ""
+	plasmid = ""
+	for i in record['GBSeq_feature-table'][0]['GBFeature_quals']:
+		if (i.values()[0] == "strain"):
+			strain = i.values()[1]
+		elif (i.values()[0] == "isolate"):
+			isolate = i.values()[1]
+		elif (i.values()[0] == "country"):
+			country = i.values()[1]
+		elif (i.values()[0] == "plasmid"):
+			isolate = i.values()[1]
+	print acc, de, source, date
+	out_seq.write(acc+"\t"+de+"\t"+source+"\t"+date+"\t"+strain+"\t"+ isolate+"\t"+country+"\t"+ plasmid+"\n")
+out_seq.close()
+GBSeq_primary-accession
+
+GBSeq_definition
+
+GBSeq_create-date
+
+
+
+record1[0]['GBSeq_feature-table'][0]['GBFeature_quals'][2]['GBQualifier_value']
+
+
+for record in data:
+	strain = record['GBSeq_feature-table'][0]['GBFeature_quals'][2]
+	print strain
+
+
+ids = records["IdList"]
+handle1 = Entrez.efetch(db="nucleotide", id="ids[0], retmode="xml")
+
+
+
+
+
+
+from Bio.Blast import NCBIXML
+blast_records = NCBIXML.parse("save_clk")
+
+
+
+
+
+
+
+
+fetch_handle = Entrez.efetch(db="nucleotide", retmode="xml", retmax=500, webenv=webenv, query_key=query_key)
+data = Entrez.read(fetch_handle)
+fetch_handle.close()
+out_handle.write(data)
+
+
+
+
+
+for start in range(0,count,batch_size):
+    	end = min(count, start+batch_size)
+    	print "Going to download record %i to %i" % (start+1, end)
+    	fetch_handle = Entrez.efetch(db="nucleotide", retmode="xml",
+                                 retstart=start, retmax=batch_size,
+                                 webenv=webenv, query_key=query_key)
+    	data = fetch_handle.read()
+    	fetch_handle.close()
+    	out_handle.write(data)
+
+
+
+
+
+
+
+
+###################
+from Bio import Entrez
+from Bio import SeqIO
+Entrez.email = "zhcong.pku@gmail.com"
+
+
+handle = Entrez.esearch(db="nucleotide", term="Enterococcus[ORGN] biomol_genomic[Properties]) AND plasmid[FILT] AND complete[Title] NOT gene[Title] NOT partial[Title] NOT cds[Title] NOT genes[Title] NOT shotgun[Title] NOT frames[Title] NOT contig[Title] NOT scaffold[Title] NOT whole genome map[Title] NOT partial sequence[Title] NOT partial plasmid[Title] NOT locus[Title] NOT region[Title] NOT fragment[Title] NOT integron[Title] NOT transposon[Title] NOT insertion sequence[Title] NOT insertion element[Title] NOT phage[Title] NOT operon[Title]", retMax = 500,  usehistory="y")
+
+search_results = Entrez.read(handle)
+handle.close()
+gi_list = search_results["IdList"]
+count = int(search_results["Count"])
+assert count == len(gi_list)
+
+
+webenv = search_results["WebEnv"]
+query_key = search_results["QueryKey"]
+
+
+
+fetch_handle = Entrez.efetch(db="nucleotide", retmode="xml", retmax=500, webenv=webenv, query_key=query_key)
+data = fetch_handle.read()
+fetch_handle.close()
+
+
+
+for record in data:
+	de = record['GBSeq_definition']
+	source = record['GBSeq_source']
+	acc = record['GBSeq_primary-accession']	
+	date = record['GBSeq_create-date']
+	strain = ""
+	isolate = ""
+	country = ""
+	plasmid = ""
+	for i in record['GBSeq_feature-table'][0]['GBFeature_quals']:
+		if (i.values()[0] == "strain"):
+			strain = i.values()[1]
+		elif (i.values()[0] == "isolate"):
+			isolate = i.values()[1]
+		elif (i.values()[0] == "country"):
+			country = i.values()[1]
+		elif (i.values()[0] == "plasmid"):
+			isolate = i.values()[1]
+	print acc, de, source, date
+	out_seq.write(acc+"\t"+de+"\t"+source+"\t"+date+"\t"+strain+"\t"+ isolate+"\t"+country+"\t"+ plasmid+"\n")
+out_seq.close()
+
+
+
+
+
+[{u'GBQualifier_name': 'organism', u'GBQualifier_value': 'Enterococcus faecium'}, {u'GBQualifier_name': 'mol_type', u'GBQualifier_value': 'genomic DNA'}, {u'GBQualifier_name': 'isolate', u'GBQualifier_value': 'ZB18'}, {u'GBQualifier_name': 'isolation_source', u'GBQualifier_value': 'leukemic human patient'}, {u'GBQualifier_name': 'host', u'GBQualifier_value': 'Homo sapiens'}, {u'GBQualifier_name': 'db_xref', u'GBQualifier_value': 'taxon:1352'}, {u'GBQualifier_name': 'plasmid', u'GBQualifier_value': 'pZB18'}, {u'GBQualifier_name': 'country', u'GBQualifier_value': 'China: Beijing'}, {u'GBQualifier_name': 'collection_date', u'GBQualifier_value': '09-Apr-2004'}, {u'GBQualifier_name': 'collected_by', u'GBQualifier_value': 'Zheng Bo'}, {u'GBQualifier_name': 'identified_by', u'GBQualifier_value': 'Zheng Bo'}, {u'GBQualifier_name': 'note', u'GBQualifier_value': 'vancomycin-resistant Enterococcus faecium clinical isolate ZB18'}]
