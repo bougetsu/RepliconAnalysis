@@ -1,0 +1,115 @@
+seq_id	Gene/ORF	Species	Plasmid	GenBank no.	Position	Size	Rep-family	Protein	Domain I	Domain II
+CDS1[pCW7][STAREPNA]	CDS1	Staphylococci	pCW7	J03323	199–1143	945	7	Topoisomerase	rep_trans	
+CDS1[pEFC1][D85392]	CDS1	E. faecalis	pEFC1	D85392	1963–2685	723	6	Topoisomerase I	rep_3	COG5527
+CDS1[pIM13][IM13CG]	CDS1	B. subtilis	pIM13	M13761	389–829	441	10	Firmicute protein	repL	HTH_CRP
+CDS1[pKC5b][AF378372]	CDS1	Lactobacillus spp	pKC5b	AF378372	826–1770	945	7	Topoisomerase	rep_trans	
+CDS1[plasmid][AY278324]	CDS1	B. thuringiensis	Plasmid	AY278324	1032–2537	1506	12	Primase	PriCT-1	
+CDS1[pRE25][X92945]	CDS1	E. faecalis	pRE25	X92945	33–1526	1494	2	Primase	PriCT-1	
+CDS1[pUSA01][NC007790]	CDS1	S. aureus	pUSA01	NC_007790	1–996	996	Unique	Rep	Rep_1	COG5655
+CDS1[pTZ12][SYNPTZ12]	CDS1	B. subtilis	pTZ12	SYNPTZ12	119–1063	945	7	Topoisomerase	rep_trans	
+CDS1*[pUB112][PB2REPZZ]	CDS1⁎	Staphylococci	pUB112	PB2REPZZ	189–1130	942	7	Topoisomerase	rep_trans	
+CDS16[pTEF3][AE016832]	CDS16	E. faecalis V583	pTEF3	AE016832	16433–17938	1506	Unique	Primase	PriCT-1	
+CDS2[pCC221][SAPC221]	CDS2	S. aureus	pC221	NC_002129	1202–2137	936	7	Topoisomerase	rep_trans	
+CDS2[pCRL291.1][NC_002799]	CDS2	Lactobacillus spp.	pCRL291.1	NC_002799	1335–2162	828	4	Topoisomerase I	rep_3	COG5527
+CDS2[pEFNP1][AB038522]	CDS2	E. faecium N15	pEFNP1	AB038522	439–1206	768	14	Topoisomerase	rep_trans	
+CDS2[pPV141][SCU82607]	CDS2	S. chromogenes	pPV141	U82607	1583–2059	477	10	Firmicute protein	repL	HTH_CRP
+CDS2[pSAS][BX571858]	CDS2	S. aureus	pSAS	BX571858	876–2144	1269	5	Topoisomerase I	rep_3	COG5527
+CDS20[pETB][NC003265]	CDS20	S. aureus	pETB	NC_003265	12002–13576	1575	Unique	Primase	PriCT-1	
+CDS20[pSJH901][CP000704]	CDS20	S. aureus	pSJH901	CP_000704	20361–19378	948	19	RepA	repA_N	
+CDS21[pSJH901][CP000704]	CDS21	S. aureus	pSJH901	CP_000704	20787–21530	744	16	Rep		
+CDS25[pSSP1][AP008935]	CDS25	S. saprophyticus	pSSP1	AP008935	22985–24250	1266	Unique	RepA	repA_N	
+CDS29[pRUM][AF507977]	CDS29	E. faecium	pRUM	AF507977	21582–20542	1041	17	RepA	repA_N	
+CDS3[pUSA02][NC007791]	CDS3	S. aureus	pUSA02	NC_007791	3369–4313	945	7	Topoisomerase	rep_trans	
+CDS3[pUSA300][CP000257]	CDS3	S. aureus	pUSA300	CP000257	3369–4313	945	7	Topoisomerase	rep_trans	
+cds3[pKC5b][AF378372]	CDS3	Lactobacillus spp	pKC5b	AF378372	3056–2247	810	4	topoisomerase I	rep_3	COG5527
+CDS32[pBMB67][DQ363750]	CDS32	B. thuringiensis	pBMB67	DQ363750	21225–22757	1533	12	Primase	PriCT-1	
+CDS38[pOX2][NC_002146]	CDS38	B. anthasis	pX02	NC_002146	34115–32577	1539	3	Primase	PriCT-1	
+CDS39[pSSP1][AP008935]	CDS39	S. saprophyticus	pSSP1	AP008935	34774–33944	831	13	Rep	Rep_1	COG5655
+CDS4[pS194][NC005564]	CDS4	S. aureus	pS194	NC_005564	3371–4315	945	7	Topoisomerase	rep_trans	
+CDS45[pLEW6932][NC009130]	CDS45	Staphylococcus spp	pLEW6932	NC_009130	40170–41141	972	19	RepA	repA_N	
+CDS5[pCIZ2][NC008259]	CDS5⁎	E. faecium	pCIZ2	NC_008259	5770–6427	666	Unique	Rep		
+CDS6[pRE25][X92945]	CDS6	E. faecalis	pRE25	X92945	4666–6156	1491	1	Primase	PriCT-1	
+CDS6[pSJH101][CP000737]	CDS6	S. aureus	pSJH101	CP_000737	4569–5552	984	16	Rep		
+CDS8[pSAS][BX571858]	CDS8	S. aureus	pSAS	BX571858	5421–4678	744	16	Rep		
+EP002*[pAM373][NC_002630]	EP002⁎	E. faecalis	pAM373	NC_002630	2741–1725	1017	8	RepA	repA_N	
+ORF[E.faecium_Contig_1183][JDOE]	ORF	E. faecium	Contig 1183	www.jgi.doe.gov	980–2473	1494	2	Primase	PriCT-1	
+ORF[E.faecium_Contig_1264][JDOE]	ORF	E. faecium	Contig 1264	www.jgi.doe.gov	5520–6560	1041	17	RepA	repA_N	
+ORF[E.faecium_Contig_1258][JDOE]	ORF	E. faecium	Contig 1258	www.jgi.doe.gov	11656–10157	1500	Unique	Primase	PriCT-1	
+ORF[pC194][SAC194]	ORF	S. aureus	pC194	NC_002013	791–114	678	13	Rep	Rep_1	COG5655
+ORF[pKH1][SAU38656]	ORF	S. aureus	pKH1	SAU38656	3769–4338	570	7	Topoisomerase	rep_trans	
+ORF[pKH6][SAU38428]	ORF	S. aureus	pKH6	SAU38428	3654–159	945	7	Topoisomerase	rep_trans	
+ORF[pKQ10][EFU01917]	ORF	E. faecium	pKQ10	EFU01917	329–730	402	14	Topoisomerase	rep_trans	
+ORF[pMBB1][EFU26268]	ORF	E. faecium	pMBB1	EFU26268	1015–1869	855	4	topoisomerase I	rep_3	COG5527
+ORF[pNE131][NC_001390]	ORF	S. epidermidis	pNE131	NC_001390	1959–89	479	10	Firmicute protein	repL	HTH_CRP
+ORF[pNS1][PNS1CG]	ORF	Staphylococci	pNS1	PNS1CG	3078–140	942	7	Topoisomerase	rep_trans	
+ORF[pRI1][unpublished]	ORF	E. faecium	pRI1	EU327398	2336–3286	951	14	Topoisomerase	rep_trans	
+ORF[pSN2][NC_001392]	ORF	S. aureus	pSN2	NC_001392	588–1064	477	10	Firmicute protein	repL	HTH_CRP
+ORF[pT181][NC_001393]	ORF	S. aureus	pT181	NC_001393	4289–791	942	7	Topoisomerase	rep_trans	
+ORF[E.faecium_287][NZ_AAAK010000287]	ORF	E. faecium 287		NZ AAAK01000287	9489–8449	1041	Unique	RepA	repA_N	
+ORF1[pOg32][LOPPOG32]	ORF1	Leuconostoc oenos	pOg32	X86402	197–1156	960	Unique	Topoisomerase	rep_trans	
+ori43[plasmid][BACORI43]	ori43	B. thuringiensis	Plasmid	M60513	829–2361	1533	12	Primase	PriCT-1	
+p103[pSE12228-01][AEO15930]	p103	S. epidermidis	pSE12228-01	AE015930	3369–4313	945	7	Topoisomerase	rep_trans	
+prgW[pCF10][L14285]	prgW	E. faecalis	pCF10	AY855841	67–1068	1002	9	RepA	repA_N	
+rep[pBT9727][CP000047]	rep	B. thuringiensis	pBT9727	CP000047	44951–43395	1557	3	Primase	PriCT-1	
+rep[pEFR][AF151037]	rep	E. faecium	pEFR	AF511037	102–2310	975	11	Topoisomerase I	rep_3	COG5527
+rep[pFL1][NC_002132]	rep	Flavobacterium spp	pFL1	NC_002132	175–687	513	Unique	Rep		
+rep[pHTbeta][AB183714]	rep	E. faecium	pHTbeta	AB183714	49773–51374	1602	Unique	Primase	PriCT-1	
+rep[pKH7][NC002096]	rep	S. aureus	pKH7	NC_002096	87–1019	933	7	Topoisomerase	rep_trans	
+rep[pMW2][NC005011]	rep	S. aureus	pMW2	NC_005011	17577–18437	861	5	Topoisomerase I	rep_3	COG5527
+rep[pN315][AP003139]	rep	S. aureus	pN315	AP003139	232–1215	984	5	Topoisomerase I	rep_3	COG5527
+rep[pS86][AJ223161]	rep	E. faecalis	pS86	AJ223161	500–1222	723	6	Topoisomerase I	rep_3	COG5527
+rep[pSA1379][NC007931]	rep	S. aureus	pSA1379	NC_007931	1–984	984	19	RepA	repA_N	
+rep[pSK1][AF203376]	rep	S. aureus	pSK1	AF203376	1307–2227	921	Unique	RepA	repA_N	
+rep[pSK3][NC001994]	rep	S. aureus	pSK3	NC_001994	876–1340	465	10b	Firmicute protein	repL	HTH_CRP
+rep[pSK41][AF051971]	rep	S. aureus	pSK41	AF051917	13205–14164	960	15	RepA	repA_N	
+rep[pT48][STAPT48GC]	rep	S. aureus	pT48	M19652	540–64	477	10	Firmicute protein	repL	HTH_CRP
+rep[pUB110][AF181950]	rep	S. aureus	pUB110	AF181950	6560–7354	795	Unique	Rep	Rep_1	COG5655
+rep[pWBG1773][EF537646]	rep	S. aureus	pWBG1773	EF537646	736–1659	924	13	Rep	Rep_1	
+rep[pSK6][SAU96610]	rep	S. aureus	pSK6	U96610	770–1234	465	10b	Firmicute protein	repL	HTH_CRP
+rep[pSK89][STARREPQAC]	rep⁎	S. aureus	pSK89	M37889	1149–226	924	13	Rep	Rep_1	COG5655
+rep*[pMW2][NC005011]	rep⁎	S. aureus	pMW2	NC_005011	228–503	276	Unique	Topoisomerase I	rep_3	COG5527
+rep165[pBMB165][DQ242517]	rep165	B. thuringiensis	pBMB165	DQ242517	14865–16421	1557	3	Primase	PriCT-1	
+rep63A[pAW63][BTH011655]	rep63A	Bacillus thuringiensis	pAW63	BTH011655	3661–2120	1542	3	Primase	PriCT-1	
+repA[p200B][AB158402]	repA	E. faecium	p200B	AB158402	7568–8500	933	18	Topoisomerase I	rep_3	COG5527
+repA[p703/5][AF109375]	repA	E. faecalis	P703/5	AF109375	705–1427	723	6	Topoisomerase I	rep_3	COG5527
+repA[pAD1][L01794]	repA	E. faecalis	pAD1	L01794	1165–155	1011	9	RepA	repA_N	
+repA[pB82][AB178875]	repA	E. faecium	pB82	AB178871	4157–5101	945	11	Topoisomerase I	rep_3	COG5527
+repA[pBI143][BFU30316]	repA	Bacteroides fragilis	pBI143	BFU30316	1468–2148	681	Unique	Rep		
+repA[pCI2000][AF178424]	repA	L. lactis	pCI2000	AF178424	6249–7524	1176	Unique	RepA	repA_N	
+repA[pEF1071][AF164559]	repA	E. faecalis BFE1071	pEF1071	AF164559	7837–8820	984	11	Topoisomerase I	rep_3	COG5527
+repA[pEF418][AF408195]	repA	E. faecalis	pEF418	AF408195	198–761	564	18	Topoisomerase I	rep_3	COG5527
+repA[pEJ97-1][AJ49170]	repA	E. faecalis	pEJ97-1	AJ49170	6874–7857	984	8	RepA	repA_N	
+repA[pLW043][AE017171]	repA	S. aureus	pLW043	AE017171	6349–7524	1176	15	RepA	repA_N	
+repA[pPD1][ENEPPD1A]	repA	E. faecalis	pPD1	D78016	989–1990	1002	9	RepA	repA_N	
+repA[pUB101][NC005127]	repA	S. aureus	pUB101	NC_005127	4519–3335	1185	19	RepA	repA_N	
+repA[pUSA03][NC007792]	repA	S. aureus	pUSA03	NC_007792	101–1060	960	15	RepA	repA_N	
+repA[VRSAp][AP003367]	repA	S. aureus	VRSAp	AP003367	315–1250	936	Unique	RepA	repA_N	
+repA*[plasmid][AY063485]	repA⁎	E. faecalis	Plasmid	AY063485	864–1	864	11	Topoisomerase I	rep_3	COG5527
+repA1[pTEF1][AE016833]	repA1	E. faecalis V583	pTEF1	AE016833	101–1111	1011	9	RepA	repA_N	
+repA2[pTEF2][AE016831]	repA2	E. faecalis V583	pTEF2	AE016831	100–1110	1011	9	RepA	repA_N	
+repC[Cassette][AB037671]	repC	S. aureus	Cassette	AB037671	30750–29806	945	7	Topoisomerase	rep_trans	
+repC[pSTE2][AJ888003]	repC	S. aureus	pSTE2	AJ888003	2599–1655	942	7	Topoisomerase	rep_trans	
+repD[pK214][LLLPK214]	repD	Lactocuccus lactis	pK214	NC_009751	19856–18916	941	7	Topoisomerase	rep_trans	
+repD[plasmid][AY939911]	repD	E. casseliflavus	plasmid	AY939911	7143–7982	840	7	Topoisomerase	rep_trans	
+repE[orf17][pIP816][unpublished]	repE	E. faecium BM4147	pIP816	NC_011140	ORF17	1490	1	Primase	PriCT-1	
+repE[pAMalpha1][AF503772]	repE	E. faecalis	pAMalpha1	AF503772	5190–4468	723	6	Topoisomerase I	rep_3	COG5527
+repE[pAMbeta1][AF007787]	repE	Enterococcus faecalis	pAMβ1	AF007787	3114–4604	1491	1	Primase	PriCT-1	
+repE[pTEF1][AE016833]	repE	E. faecalis V583	pTEF1	AE016833	51882–51710	1173	1	Primase	PriCT-1	
+repE*[pEF47][AY842500]	repE	E. faecalis	pEF47	AY842500	1–617	617	6	Topoisomerase I	rep_3	COG5527
+repE*[pLCR255][AY842501]	repE	S. gallolyticus	pLCR255	AY842501	1–617	617	6	Topoisomerase I	rep_3	COG5527
+repE*[pIP680][AF1172258]	repE′	Staphylocuccus aureus	pIP680	AF117258	1–456	456	1		Rrf2	
+repL[pE5][PE5PE5A]	repL	B. subtilis	pE5	M17990	389–865	477	10	Firmicute protein	repL	HTH_CRP
+repM200[pBM200][DQ437521]	repM200	B. megaterium	pBM200	DQ437521	3725–4423	699	Unique	RCR protein		
+repR[pEF1][DQ198088]	repR	E. faecium	pEF1	DQ198088	16296–17789	1494	2	Primase	PriCT-1	
+repR[pGB354][U83488]	repR	S. agactiae	pGB354	U83488	5–1495	1491	1	Primase	PriCT-1	
+repR[pIP501][X17655]	repR	E. faecalis	pIP501	X17655	621–2111	1491	1	Primase	PriCT-1	
+repR[pVEF1][NC008768]	repR	E. faecium	pVEF1	NC_008768	23488–24981	1494	2	Primase	PriCT-1	
+repR[pVEF2][NC008821]	repR	E. faecium	pVEF2	NC_008821	23576–25069	1494	2	Primase	PriCT-1	
+rep[orf30][pIP816][unpublished]	repR⁎	E. faecium BM4147	pIP816	NC_011140	ORF30	1426	2	Primase	PriCT-1	
+repS[pBT233][X64695]	repS	Streptococcus pyogenes	pBT233	X64695	503–1993	1491	1	Primase	PriCT-1	
+repS[pMD101][X66468]	repS	S. pyogenes	pMD101	X66468	638–2128	1491	1	Primase	PriCT-1	
+repS[pSM19035][AY357120]	repS	S. sanguis	pSM19035	AY357120	16813–15323	1491	1	Primase	PriCT-1	
+repS2[pSM19035][AY357120]	repS2	S. sanguis	pSM19035	AY357120	2128–638	1491	1	Primase	PriCT-1	
+rep1[pJB01][NC006427]	rep1	E. faecalis	pJB01	NC006427	NA	201	Unique	na		
+rep2[pC223][NC005243]	rep2	S. sanguis	pC223	NC005243	na	155	Unique	na				
+rep1[pWBG1773][EF537646]	rep1	S. sanguis	pWBG1773	EF537646	na	160	Unique	NA
