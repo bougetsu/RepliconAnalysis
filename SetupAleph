@@ -25,6 +25,10 @@ python -m pip install --upgrade pip setuptools wheel
 pip install scipy
 easy_install reportlab 
 easy_install -f http://biopython.org/DIST/ biopython
+##error
+ImportError: cannot import name ContextualVersionConflict .
+##fixed by
+sudo pip install setuptools==5.4
 
 
 

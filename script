@@ -1,0 +1,338 @@
+blastn -query ncbi-genomes-2018-03-19/entero_genome.fna -db db/rep_kelli -outfmt 11 -out "entero_genome.blastn@rep_kelli.asn" -num_threads 8
+blast_formatter -archive "entero_genome.blastn@rep_kelli.asn" -outfmt "7 qseqid sseqid pident length qcovs qstart qend sstart send evalue bitscore" > "entero_genome.blastn@rep_kelli.tab"
+
+python python_scripts/filterAligned.py rep_info.tab enteroccocus_plasmid.blastn@rep_kelli.tab enter_blast@rep_kelli_filtered.tab
+sort -t $'\t'  -k1,1r -k19,19n -k6,6n -k7,7n  enter_blast@rep_kelli_filtered.tab > enter_blast@rep_kelli_filtered.tab_filtered
+python python_scripts/unique.py enter_blast@rep_kelli_filtered.tab
+awk -F '\t' '{ print $1,$19 }' enter_blast@rep_kelli_filtered.tab_uniq > plasmid_family.tab
+
+
+python RepliconAnalysis/filterAligned.py RepliconAnalysis/rep_info.tab data/entero_genome.blastn\@rep_kelli.tab data/enter_genome@rep_kelli_filtered.tab
+
+awk -F '\t' '{ print $1,$19,$6,$7 }' enter_genome@rep_kelli_filtered.tab_uniq > enter_genome_family.tab
+
+
+
+##get genbank id and retrieve data from biopython
+awk -F '\t' '{ print $1}' enter_genome@rep_kelli_filtered.tab_uniq > enter_genome_id
+
+sed -i '1d' enter_genome_id
+
+
+#################
+##biopython
+################
+from Bio import Entrez
+from Bio import SeqIO
+Entrez.email = "zhcong.pku@gmail.com"
+
+
+with open('enter_genome_id') as f:
+    id_list = f.read().splitlines()
+
+
+id_list
+id=",".join(id_list)
+
+fetch_handle = Entrez.efetch(db="nucleotide", retmode="xml", id=id)
+data = Entrez.read(fetch_handle)
+fetch_handle.close()
+
+out_seq = open("entero_geno_meta.tab", "w")
+
+
+for record in data:
+	de = record['GBSeq_definition']
+	source = record['GBSeq_source']
+	acc = record['GBSeq_primary-accession']	
+	date = record['GBSeq_create-date']
+	strain = ""
+	isolate = ""
+	country = ""
+	plasmid = ""
+	mol_type = ""
+	orgn = ""
+	for i in record['GBSeq_feature-table'][0]['GBFeature_quals']:
+		if (i.values()[0] == "strain"):
+			strain = i.values()[1]
+		elif (i.values()[0] == "isolate"):
+			isolate = i.values()[1]
+		elif (i.values()[0] == "country"):
+			country = i.values()[1]
+		elif (i.values()[0] == "plasmid"):
+			plasmid = i.values()[1]
+		elif (i.values()[0] == "mol_type"):
+			mol_type = i.values()[1]
+		elif (i.values()[0] == "organism"):
+			orgn = i.values()[1]
+	print acc, de, orgn, source, mol_type, orgn,date
+	out_seq.write(acc+"\t"+de+"\t"+source+"\t"+date+"\t"+strain+"\t"+ mol_type+"\t" +isolate+"\t"+country+"\t"+ plasmid+"\n")
+out_seq.close()
+
+############
+##test blast with no output sequence
+##GCA_000321785.1
+##GCA_000321925.1
+##GCA_000250945.1 ##positive
+
+
+cat GCA_000321785.1* GCA_000321925.1* GCA_000250945.1 > test.fna
+blastn -query ncbi-genomes-2018-03-19/test.fna -db db/rep_kelli -outfmt 11 -out "test.blastn@rep_kelli.asn" -num_threads 8
+blast_formatter -archive "test.blastn@rep_kelli.asn" -outfmt "7 qseqid sseqid pident length qcovs qstart qend sstart send evalue bitscore" > "test.blastn@rep_kelli.tab"
+
+
+####test
+python ../RepliconAnalysis/MapGenMeta.py entero_geno_meta.tab enter_genome_family.tab enter_geno_family_meta.tab
+
+####join meta info and family info
+python ../RepliconAnalysis/MapGenMeta.py entero_geno_meta.tab enter_genome_family.tab enter_geno_family_meta.tab
+
+
+
+
+
+
+####antibiotics
+###build database
+
+makeblastdb -in /home/cxz163430/Work/project/data/card-data/nucleotide_fasta_protein_homolog_model.fasta -dbtype nucl -out /home/cxz163430/Work/project/data/db/card_nucleotide_fasta_protein_homolog
+makeblastdb -in /home/cxz163430/Work/project/data/card-data/protein_fasta_protein_homolog_model.fasta -dbtype prot -out /home/cxz163430/Work/project/data/db/card_protein_fasta_protein_homolog
+
+###do blast
+blastn -query /home/cxz163430/Work/project/data/ncbi-genomes-2018-03-19/entero_genome.fna -db /home/cxz163430/Work/project/data/db/card_nucleotide_fasta_protein_homolog -outfmt 11 -out "entero_genome.blastn@card_np_homolog.asn" -num_threads 8
+blastx -query /home/cxz163430/Work/project/data/ncbi-genomes-2018-03-19/entero_genome.fna -db /home/cxz163430/Work/project/data/db/card_protein_fasta_protein_homolog -outfmt 11 -out "entero_genome.blastx@card_np_homolog.asn" -num_threads 8
+
+
+
+####format
+blast_formatter -archive "entero_genome.blastn@card_np_homolog.asn" -outfmt "7 qseqid sseqid pident length qcovs qstart qend sstart send evalue bitscore" > "entero_genome.blastn@card_np_homolog.tab"
+blast_formatter -archive "entero_genome.blastx@card_np_homolog.asn" -outfmt "7 qseqid sseqid pident length qcovs qstart qend sstart send evalue bitscore" > "entero_genome.blastx@card_np_homolog.tab"
+
+
+
+
+####
+python ../RepliconAnalysis/CardFilter.py entero_genome.blastn@card_np_homolog.tab entero_genome.blastn@card_np_homolog_filtered.tab
+sort -t $'\t'  -k1,1r -k6,6n -k7,7n -k3,3n entero_genome.blastn@card_np_homolog_filtered.tab > entero_genome.blastn@card_np_homolog_filtered.tab_sorted
+python ../RepliconAnalysis/CardUnique.py entero_genome.blastn@card_np_homolog_filtered.tab
+
+python ../RepliconAnalysis/CardKeepName.py test_res_rep
+
+
+
+
+
+
+
+
+
+#################
+##biopython GET ALL META
+################
+from Bio import Entrez
+from Bio import SeqIO
+Entrez.email = "zhcong.pku@gmail.com"
+
+
+with open('AllIdGenome') as f:
+    id_list = f.read().splitlines()
+
+
+id_list
+id=",".join(id_list)
+
+fetch_handle = Entrez.efetch(db="nucleotide", retmode="xml", id=id)
+data = fetch_handle.read()
+fetch_handle.close()
+
+out_seq = open("All_geno_meta.tab", "w")
+
+
+for record in data:
+	de = record['GBSeq_definition']
+	source = record['GBSeq_source']
+	acc = record['GBSeq_primary-accession']	
+	date = record['GBSeq_create-date']
+	strain = ""
+	isolate = ""
+	country = ""
+	plasmid = ""
+	mol_type = ""
+	orgn = ""
+	for i in record['GBSeq_feature-table'][0]['GBFeature_quals']:
+		if (i.values()[0] == "strain"):
+			strain = i.values()[1]
+		elif (i.values()[0] == "isolate"):
+			isolate = i.values()[1]
+		elif (i.values()[0] == "country"):
+			country = i.values()[1]
+		elif (i.values()[0] == "plasmid"):
+			plasmid = i.values()[1]
+		elif (i.values()[0] == "mol_type"):
+			mol_type = i.values()[1]
+		elif (i.values()[0] == "organism"):
+			orgn = i.values()[1]
+	print acc, de, orgn, source, mol_type, orgn,date
+	out_seq.write(acc+"\t"+de+"\t"+source+"\t"+date+"\t"+strain+"\t"+ mol_type+"\t" +isolate+"\t"+country+"\t"+ plasmid+"\n")
+out_seq.close()
+
+
+
+
+
+
+
+#############
+##May 7
+#############
+
+1. re-ran blast
+
+2. chekc # of records in output and input
+grep '# Query' entero_genome.blastn@rep_kelli.tab |wc -l
+230553
+
+grep '>' ncbi-genomes-2018-03-19/entero_genome.fna |wc -l
+230553
+
+
+3. get qualified records
+python RepliconAnalysis/filterAligned.py RepliconAnalysis/rep_info.tab entero_genome.blastn@rep_kelli.tab data/enter_genome@rep_kelli_filtered.tab
+
+wc -l enter_genome@rep_kelli_filtered.tab
+#14585 enter_genome@rep_kelli_filtered.tab
+
+
+
+
+sort -t $'\t'  -k1,1r -k19,19n -k6,6n -k7,7n  enter_genome@rep_kelli_filtered.tab > enter_genome@rep_kelli_filtered.tab_filtered
+python ../RepliconAnalysis/unique.py enter_genome@rep_kelli_filtered.tab
+
+wc -l enter_genome@rep_kelli_filtered.tab
+#14585 enter_genome@rep_kelli_filtered.tab
+
+awk -F '\t' '{ print $1,$19,$6,$7 }' enter_genome@rep_kelli_filtered.tab_uniq > enter_genome_family.tab
+
+
+cxz163430@bougetsu:~/Work/project/data$ wc -l enter_genome_family.tab
+5391 enter_genome_family.tab
+cxz163430@bougetsu:~/Work/project/data$ wc -l enter_genome@rep_kelli_filtered.tab_uniq
+5391 enter_genome@rep_kelli_filtered.tab_uniq
+
+
+
+
+4. Get meta from biopython or from the table
+
+##get genbank id and retrieve data from biopython
+awk -F '\t' '{ print $1}' enter_genome@rep_kelli_filtered.tab_uniq > enter_genome_id
+
+sed -i '1d' enter_genome_id
+
+
+#################
+##biopython
+################
+from Bio import Entrez
+from Bio import SeqIO
+Entrez.email = "zhcong.pku@gmail.com"
+
+
+with open('enter_genome_id') as f:
+    id_list = f.read().splitlines()
+
+
+id_list
+id=",".join(id_list)
+
+fetch_handle = Entrez.efetch(db="nucleotide", retmode="xml", id=id)
+data = Entrez.read(fetch_handle)
+fetch_handle.close()
+
+out_seq = open("entero_geno_meta.tab", "w")
+
+
+for record in data:
+	de = record['GBSeq_definition']
+	source = record['GBSeq_source']
+	acc = record['GBSeq_primary-accession']	
+	date = record['GBSeq_create-date']
+	strain = ""
+	isolate = ""
+	country = ""
+	plasmid = ""
+	mol_type = ""
+	orgn = ""
+	for i in record['GBSeq_feature-table'][0]['GBFeature_quals']:
+		if (i.values()[0] == "strain"):
+			strain = i.values()[1]
+		elif (i.values()[0] == "isolate"):
+			isolate = i.values()[1]
+		elif (i.values()[0] == "country"):
+			country = i.values()[1]
+		elif (i.values()[0] == "plasmid"):
+			plasmid = i.values()[1]
+		elif (i.values()[0] == "mol_type"):
+			mol_type = i.values()[1]
+		elif (i.values()[0] == "organism"):
+			orgn = i.values()[1]
+	print acc, de, orgn, source, mol_type, orgn,date
+	out_seq.write(acc+"\t"+de+"\t"+source+"\t"+date+"\t"+strain+"\t"+ mol_type+"\t"+country+"\t"+ plasmid+ "\t" +isolate+"\n")
+out_seq.close()
+
+wc -l entero_geno_meta.tab
+5390 entero_geno_meta.tab
+
+
+##missing one line???? Title
+
+
+####join meta info and family info
+
+python ../RepliconAnalysis/MapGenMeta.py entero_geno_meta.tab enter_genome_family.tab enter_geno_family_meta.tab
+cxz163430@bougetsu:~/Work/project/data$ wc -l enter_geno_family_meta.tab
+429 enter_geno_family_meta.tab
+cxz163430@bougetsu:~/Work/project/data$ rm enter_geno_family_meta.tab
+cxz163430@bougetsu:~/Work/project/data$ python ../RepliconAnalysis/MapGenMeta.py entero_geno_meta.tab enter_genome_family.tab enter_geno_family_meta.tab
+
+
+
+
+
+
+
+
+
+
+
+
+hmmer-3.1b2-linux-intel-x86_64
+
+
+###################HHMER
+tar xf hmmer-3.1b2-linux-intel-x86_64.tar.gz
+cd hmmer-3.1b2-linux-intel-x86_64
+add /home/cxz163430/software/hmmer-3.1b2-linux-intel-x86_64/binaries to $PATH
+
+
+
+
+
+
+
+
+###############get unique family rep hits
+grep "Unique" enter_genome@rep_kelli_filtered.tab_uniq | awk -F '\t' '{ print $1, $2, $19}' > enter_genome_unique.tab
+
+#######get rep matched ID, start, end pos to get all aligned seq
+
+awk -F '\t' '{ print $1, $6, $7}' enter_genome@rep_kelli_filtered.tab_uniq > enter_genome_id_pos
+sed -i '1d' enter_genome_id_pos
+
+
+
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                        
