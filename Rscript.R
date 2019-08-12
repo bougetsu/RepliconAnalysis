@@ -8,16 +8,6 @@ head(dat)
 
 
 
-
-
-
-
-
-
-
-
-
-
 res <- read.table("entero_genome.blastn@card_np_homolog_filtered.tab_uniq", header = T, stringsAsFactors = F, sep = "\t")
 
 met <- read.table("All_geno_meta.tab", header = F, stringsAsFactors = F, sep = "\t")

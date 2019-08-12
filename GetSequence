@@ -211,7 +211,7 @@ for start in range(0,count,batch_size):
 
 
 
-
+search_term = "bacteria[ORGN] biomol_genomic[Properties]) AND plasmid[FILT] AND complete[Title] NOT gene[Title] NOT partial[Title] NOT cds[Title] NOT genes[Title] NOT shotgun[Title] NOT frames[Title] NOT contig[Title] NOT scaffold[Title] NOT whole genome map[Title] NOT partial sequence[Title] NOT partial plasmid[Title] NOT locus[Title] NOT region[Title] NOT fragment[Title] NOT integron[Title] NOT transposon[Title] NOT insertion sequence[Title] NOT insertion element[Title] NOT phage[Title] NOT operon[Title]"
 
 
 
@@ -221,7 +221,7 @@ from Bio import SeqIO
 Entrez.email = "zhcong.pku@gmail.com"
 
 
-handle = Entrez.esearch(db="nucleotide", term="Enterococcus[ORGN] biomol_genomic[Properties]) AND plasmid[FILT] AND complete[Title] NOT gene[Title] NOT partial[Title] NOT cds[Title] NOT genes[Title] NOT shotgun[Title] NOT frames[Title] NOT contig[Title] NOT scaffold[Title] NOT whole genome map[Title] NOT partial sequence[Title] NOT partial plasmid[Title] NOT locus[Title] NOT region[Title] NOT fragment[Title] NOT integron[Title] NOT transposon[Title] NOT insertion sequence[Title] NOT insertion element[Title] NOT phage[Title] NOT operon[Title]", retMax = 500,  usehistory="y")
+handle = Entrez.esearch(db="nucleotide", term="bacteria[ORGN] biomol_genomic[Properties]) AND plasmid[FILT] AND complete[Title] NOT gene[Title] NOT partial[Title] NOT cds[Title] NOT genes[Title] NOT shotgun[Title] NOT frames[Title] NOT contig[Title] NOT scaffold[Title] NOT whole genome map[Title] NOT partial sequence[Title] NOT partial plasmid[Title] NOT locus[Title] NOT region[Title] NOT fragment[Title] NOT integron[Title] NOT transposon[Title] NOT insertion sequence[Title] NOT insertion element[Title] NOT phage[Title] NOT operon[Title]", retMax = 500,  usehistory="y")
 
 search_results = Entrez.read(handle)
 handle.close()
